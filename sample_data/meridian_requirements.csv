@@ -1,0 +1,10 @@
+category,requirement,status
+users,Approximately 5000 intended users,confirmed
+data,BigQuery and Google Drive are in scope,confirmed
+security,Role-based access control required,confirmed
+security,Audit logging required,confirmed
+performance,Response latency below 3 seconds,confirmed
+timeline,Pilot within 8 weeks,confirmed
+commercial,Approved pilot budget,unknown
+performance,Peak concurrency,unknown
+security,PII and data classification,unknown
