@@ -1,0 +1,32 @@
+{
+  "managed_generative_ai": {
+    "service": "Vertex AI",
+    "triggers": ["AI assistant", "Gemini", "generative AI", "model"],
+    "rationale": "Managed enterprise access to Gemini models, evaluation, governance, and AI development capabilities."
+  },
+  "serverless_application": {
+    "service": "Cloud Run",
+    "triggers": ["web", "application", "API", "variable demand"],
+    "rationale": "Managed container runtime for the web application and orchestration layer with autoscaling."
+  },
+  "analytics_data": {
+    "service": "BigQuery",
+    "triggers": ["BigQuery", "analytics", "warehouse", "structured data"],
+    "rationale": "Enterprise analytics warehouse and governed source for structured operational data."
+  },
+  "document_storage": {
+    "service": "Cloud Storage / Google Drive",
+    "triggers": ["Drive", "documents", "files", "unstructured"],
+    "rationale": "Document source and durable object storage for unstructured customer knowledge."
+  },
+  "identity_access": {
+    "service": "Cloud IAM",
+    "triggers": ["RBAC", "role-based", "identity", "access"],
+    "rationale": "Centralized permissions and least-privilege access control for cloud resources."
+  },
+  "observability": {
+    "service": "Cloud Logging and Monitoring",
+    "triggers": ["audit", "logging", "monitoring", "SLO"],
+    "rationale": "Operational visibility, audit trails, service health, and alerting."
+  }
+}
