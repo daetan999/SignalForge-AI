@@ -1,0 +1,27 @@
+SYNTHETIC DEMO DATA — NOT A REAL CUSTOMER
+
+Customer: Meridian Hospitality Group
+Industry: Hospitality
+Use Case: Internal enterprise AI assistant for knowledge and operational analytics
+
+Meeting participants:
+- Chief Information Officer
+- Head of IT
+- Director of Operations
+- Finance Manager
+
+Business context:
+Meridian wants to deploy an internal AI assistant for approximately 5,000 users across Singapore and the wider Asia-Pacific region. The assistant should help employees locate policies, answer operating questions, and query approved operational data.
+
+Current environment:
+- Existing cloud is Google Cloud.
+- Structured operational data is held in BigQuery.
+- Internal policies and standard operating procedures are stored in Google Drive.
+- The customer expects role-based access control and audit logging.
+
+Pilot expectations:
+- Pilot within 8 weeks.
+- Target response latency under 3 seconds.
+- Budget is not yet approved.
+- Peak concurrency and monthly request volume are unknown.
+- The team has not confirmed whether the selected documents contain PII or restricted information.
