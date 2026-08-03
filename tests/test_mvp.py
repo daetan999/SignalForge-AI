@@ -30,6 +30,28 @@ def test_unknown_data_classification_is_high_risk():
     assert any(risk.category == "security" and risk.severity == "high" for risk in risks)
 
 
+def test_unknown_scale_is_a_technical_risk_even_when_latency_is_known():
+    profile = MockOpportunityProvider().extract_profile([
+        ParsedDocument(
+            name="notes.txt",
+            media_type="text/plain",
+            text="Customer: Test Co\nUse Case: AI assistant\nLatency under 3 seconds",
+        )
+    ])
+    assert any(
+        item.category == "performance" and item.status == "confirmed"
+        for item in profile.requirements
+    )
+    assert any(
+        item.category == "performance" and item.status == "unknown"
+        for item in profile.requirements
+    )
+
+    risks = assess_opportunity_risks(profile, calculate_discovery_coverage(profile))
+
+    assert any(risk.category == "technical" for risk in risks)
+
+
 def test_full_mock_workflow_returns_handoff_ready_result():
     result = analyze_opportunity(
         [ParsedDocument(
