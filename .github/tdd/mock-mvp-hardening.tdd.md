@@ -17,6 +17,7 @@ The journeys were derived from the agreed SignalForge MVP plan:
 | Grounded mock extraction and Streamlit demo | `b94a78a` — 3 failures in the new target suite | `873da76` — full suite passed after the grounded extractor and UI key were implemented |
 | Runtime settings, injectable Vertex boundary, retry, packaging ignores, unknown-scale risk | `9e65335` — 6 intended failures | `00d35ff` — target suite 7 passed; full suite 18 passed |
 | Confirmed scale is distinguished from an explicit unknown | `13b74c5` — focused test failed | `04822e0` — focused and full suites passed |
+| The documented validator command runs directly from the project root | `f2c210e` — direct execution reproduced `ModuleNotFoundError` | Follow-up fix — focused test and full 20-test suite passed |
 
 ## Test guarantees
 
