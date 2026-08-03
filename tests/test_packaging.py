@@ -32,7 +32,7 @@ def test_portable_zip_contains_runtime_but_not_local_environment(tmp_path):
     assert "app.py" in names
     assert "requirements.txt" in names
     assert "sample_data/meridian_discovery_notes.txt" in names
-    assert not any(name.startswith((".git/", ".venv/")) for name in names)
+    assert not any(name.startswith((".git/", ".venv/", ".ruff_cache/")) for name in names)
     assert ".env" not in names
     assert not any(name.endswith(".zip") for name in names)
 
