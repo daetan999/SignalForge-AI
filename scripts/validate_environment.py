@@ -1,11 +1,11 @@
 """Fast event-day checks before launching the full application."""
+
 from __future__ import annotations
 
 import importlib
 import sys
 
 from config.settings import settings
-
 
 REQUIRED_IMPORTS = ["streamlit", "pydantic", "docx", "google.genai"]
 

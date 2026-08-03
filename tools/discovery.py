@@ -1,8 +1,8 @@
 """Discovery coverage, gap generation, and deterministic next-step logic."""
+
 from __future__ import annotations
 
 from schemas.opportunity import CoverageAssessment, Decision, DiscoveryGap, OpportunityProfile, Risk
-
 
 DIMENSIONS = {
     "business objective": "business",
@@ -17,13 +17,34 @@ DIMENSIONS = {
 
 QUESTIONS = {
     "business objective": ("important", "Which measurable business outcome defines pilot success?"),
-    "user population": ("important", "How many users and peak concurrent sessions must the pilot support?"),
-    "data sources": ("critical", "Which systems and repositories are in scope, and who owns access approval?"),
-    "security and governance": ("critical", "What data classification, PII, residency, and audit requirements apply?"),
-    "performance and scale": ("important", "What are the peak request volume, latency target, and availability requirement?"),
-    "integrations": ("important", "Which identity, data, and workflow integrations are mandatory for the pilot?"),
-    "timeline": ("important", "What date is fixed, and which dependencies could affect the pilot timeline?"),
-    "commercial approval": ("critical", "What pilot budget is approved, and who owns commercial sign-off?"),
+    "user population": (
+        "important",
+        "How many users and peak concurrent sessions must the pilot support?",
+    ),
+    "data sources": (
+        "critical",
+        "Which systems and repositories are in scope, and who owns access approval?",
+    ),
+    "security and governance": (
+        "critical",
+        "What data classification, PII, residency, and audit requirements apply?",
+    ),
+    "performance and scale": (
+        "important",
+        "What are the peak request volume, latency target, and availability requirement?",
+    ),
+    "integrations": (
+        "important",
+        "Which identity, data, and workflow integrations are mandatory for the pilot?",
+    ),
+    "timeline": (
+        "important",
+        "What date is fixed, and which dependencies could affect the pilot timeline?",
+    ),
+    "commercial approval": (
+        "critical",
+        "What pilot budget is approved, and who owns commercial sign-off?",
+    ),
 }
 
 

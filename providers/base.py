@@ -1,4 +1,5 @@
 """Provider contract that keeps model access separate from business logic."""
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod

@@ -1,4 +1,5 @@
 """Runtime configuration for SignalForge AI."""
+
 from __future__ import annotations
 
 import os
@@ -15,9 +16,7 @@ class Settings:
     )
     location: str = field(
         default_factory=lambda: (
-            os.getenv("GOOGLE_CLOUD_LOCATION")
-            or os.getenv("GOOGLE_CLOUD_REGION")
-            or "global"
+            os.getenv("GOOGLE_CLOUD_LOCATION") or os.getenv("GOOGLE_CLOUD_REGION") or "global"
         )
     )
     model_name: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-2.5-flash"))
@@ -28,9 +27,7 @@ class Settings:
         if self.app_mode not in {"mock", "vertex"}:
             raise ValueError("APP_MODE must be either 'mock' or 'vertex'.")
         if self.app_mode == "vertex" and not self.project_id:
-            raise RuntimeError(
-                "Vertex mode requires GOOGLE_CLOUD_PROJECT or GCLOUD_PROJECT."
-            )
+            raise RuntimeError("Vertex mode requires GOOGLE_CLOUD_PROJECT or GCLOUD_PROJECT.")
 
 
 settings = Settings()

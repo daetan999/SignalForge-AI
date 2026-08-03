@@ -4,7 +4,7 @@
 
 SignalForge AI converts unstructured customer material into an evidence-backed opportunity workspace: confirmed requirements, missing discovery questions, risks, initial Google Cloud solution direction, and an AE-to-SE handoff.
 
-> **Current status:** Mock-mode MVP foundation. Live Vertex AI validation will be completed inside the Build with Gemini sandbox. All customer names and documents in this repository are synthetic.
+> **Current status:** The local mock-mode MVP is implemented and tested. Live Vertex AI authentication, model access, and Cloud Run permissions still require validation inside the Build with Gemini sandbox. All customer names and documents in this repository are synthetic.
 
 ## Why it exists
 
@@ -66,7 +66,7 @@ The model interprets language. Python handles file parsing, scoring, severity ru
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-APP_MODE=mock streamlit run app.py
+APP_MODE=mock bash scripts/run_local.sh
 ```
 
 Mock mode needs no GCP account. It runs the complete workflow with deterministic synthetic extraction.
@@ -85,6 +85,28 @@ streamlit run app.py --server.port 8080 --server.address 0.0.0.0
 
 Authentication uses Google Cloud Application Default Credentials. No keys, project IDs, regions, or local paths are hardcoded.
 
+The Vertex provider uses the same validated `OpportunityProfile` contract as mock mode, retries one malformed structured response, and is selected only through `APP_MODE`.
+
+## Workshop transfer
+
+Create the self-contained archive before the event:
+
+```bash
+bash scripts/package_for_gcp.sh
+```
+
+Upload `signalforge-ai-gcp.zip` through the Cloud Shell browser, then:
+
+```bash
+unzip signalforge-ai-gcp.zip -d signalforge-ai
+cd signalforge-ai
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+The package excludes Git history, local environments, secrets, caches, generated outputs, and existing ZIP files.
+
 ## Cloud Run
 
 ```bash
@@ -96,10 +118,22 @@ The primary workshop fallback is Cloud Shell Web Preview. Cloud Run is the secon
 ## Testing
 
 ```bash
+pip install -r requirements-dev.txt
 pytest -q
+pytest --cov --cov-report=term-missing
+ruff check .
 ```
 
-Current tests cover document parsing, discovery gaps, deterministic risk rules, and the full mock workflow.
+The test suite covers document parsing, evidence-grounded mock extraction, discovery and risk branches, runtime configuration, the Vertex provider boundary, portable packaging, exports, and the full Streamlit demo flow. Coverage is enforced at 80% for the core Python modules.
+
+## Demo fallback ladder
+
+1. Cloud Run with live Vertex AI.
+2. Cloud Shell Web Preview with live Vertex AI.
+3. Cloud Shell Web Preview in deterministic mock mode.
+4. Locally tested mock-mode workflow and exported artifacts.
+
+The live demo uses the bundled Meridian Hospitality scenario so no real customer data is required.
 
 ## Repository map
 

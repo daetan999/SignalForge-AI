@@ -30,13 +30,15 @@ class _Client:
 
 
 def _valid_profile_json() -> str:
-    return json.dumps({
-        "customer_name": "Northstar Bank",
-        "industry": "Financial Services",
-        "use_case": "Employee policy assistant",
-        "requirements": [],
-        "stakeholders": [],
-    })
+    return json.dumps(
+        {
+            "customer_name": "Northstar Bank",
+            "industry": "Financial Services",
+            "use_case": "Employee policy assistant",
+            "requirements": [],
+            "stakeholders": [],
+        }
+    )
 
 
 def test_vertex_provider_uses_injected_client_and_configured_model():
@@ -49,9 +51,9 @@ def test_vertex_provider_uses_injected_client_and_configured_model():
     )
     provider = VertexOpportunityProvider(settings, client_factory=lambda **_: client)
 
-    profile = provider.extract_profile([
-        ParsedDocument(name="notes.txt", media_type="text/plain", text="Customer: Northstar Bank")
-    ])
+    profile = provider.extract_profile(
+        [ParsedDocument(name="notes.txt", media_type="text/plain", text="Customer: Northstar Bank")]
+    )
 
     assert profile.customer_name == "Northstar Bank"
     assert client.models.calls[0]["model"] == "gemini-test-model"
@@ -63,9 +65,9 @@ def test_vertex_provider_retries_once_after_malformed_structured_output():
     settings = Settings(app_mode="vertex", project_id="sandbox-project")
     provider = VertexOpportunityProvider(settings, client_factory=lambda **_: client)
 
-    profile = provider.extract_profile([
-        ParsedDocument(name="notes.txt", media_type="text/plain", text="Customer: Northstar Bank")
-    ])
+    profile = provider.extract_profile(
+        [ParsedDocument(name="notes.txt", media_type="text/plain", text="Customer: Northstar Bank")]
+    )
 
     assert profile.customer_name == "Northstar Bank"
     assert len(client.models.calls) == 2

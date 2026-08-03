@@ -1,4 +1,5 @@
 """Streamlit interface for SignalForge AI."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -10,7 +11,6 @@ from config.settings import settings
 from tools.artifact_writer import analysis_to_docx, analysis_to_json, analysis_to_markdown
 from tools.document_parser import parse_documents
 
-
 ROOT = Path(__file__).resolve().parent
 DEMO_FILES = [
     ROOT / "sample_data" / "meridian_discovery_notes.txt",
@@ -19,14 +19,14 @@ DEMO_FILES = [
 
 st.set_page_config(page_title="SignalForge AI", page_icon="⚡", layout="wide")
 
-st.markdown("""
+st.markdown(
+    """
 <style>
 .block-container {padding-top: 2rem; max-width: 1280px;}
-.sf-hero {padding: 1.5rem 1.75rem; border: 1px solid #dbe3ee; border-radius: 18px; background: linear-gradient(135deg,#f8fafc,#eef4ff);}
-.sf-kicker {font-size: .78rem; letter-spacing: .12em; font-weight: 700; color: #475569; text-transform: uppercase;}
-.sf-sub {color:#475569; max-width:760px; margin-top:.4rem;}
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 with st.container(border=True):
     st.caption("AGENTIC OPPORTUNITY INTELLIGENCE")
@@ -97,19 +97,27 @@ if result:
         st.markdown(f"**Recommended action:** {result.decision.recommendation}")
         st.write(result.decision.reason)
         st.markdown("#### Stakeholders")
-        st.dataframe([item.model_dump() for item in result.profile.stakeholders], width="stretch", hide_index=True)
+        st.dataframe(
+            [item.model_dump() for item in result.profile.stakeholders],
+            width="stretch",
+            hide_index=True,
+        )
 
     with tabs[1]:
-        st.dataframe([
-            {
-                "Category": item.category.title(),
-                "Requirement": item.requirement,
-                "Status": item.status.title(),
-                "Source": item.evidence.source if item.evidence else "Missing",
-                "Confidence": item.evidence.confidence if item.evidence else None,
-            }
-            for item in result.profile.requirements
-        ], width="stretch", hide_index=True)
+        st.dataframe(
+            [
+                {
+                    "Category": item.category.title(),
+                    "Requirement": item.requirement,
+                    "Status": item.status.title(),
+                    "Source": item.evidence.source if item.evidence else "Missing",
+                    "Confidence": item.evidence.confidence if item.evidence else None,
+                }
+                for item in result.profile.requirements
+            ],
+            width="stretch",
+            hide_index=True,
+        )
 
     with tabs[2]:
         for gap in result.gaps:
@@ -128,12 +136,32 @@ if result:
                 st.markdown(f"**{component.service}** · {component.capability}")
                 st.write(component.rationale)
                 st.caption(f"Direction confidence: {component.confidence}")
-        st.caption("Initial direction only. Final architecture requires customer validation and sizing.")
+        st.caption(
+            "Initial direction only. Final architecture requires customer validation and sizing."
+        )
 
     with tabs[5]:
         markdown = analysis_to_markdown(result)
         st.markdown(markdown)
         c1, c2, c3 = st.columns(3)
-        c1.download_button("Download Markdown", markdown, "signalforge-opportunity-brief.md", "text/markdown", width="stretch")
-        c2.download_button("Download JSON", analysis_to_json(result), "signalforge-analysis.json", "application/json", width="stretch")
-        c3.download_button("Download DOCX", analysis_to_docx(result), "signalforge-ae-se-handoff.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", width="stretch")
+        c1.download_button(
+            "Download Markdown",
+            markdown,
+            "signalforge-opportunity-brief.md",
+            "text/markdown",
+            width="stretch",
+        )
+        c2.download_button(
+            "Download JSON",
+            analysis_to_json(result),
+            "signalforge-analysis.json",
+            "application/json",
+            width="stretch",
+        )
+        c3.download_button(
+            "Download DOCX",
+            analysis_to_docx(result),
+            "signalforge-ae-se-handoff.docx",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            width="stretch",
+        )
