@@ -37,7 +37,14 @@ def assess_opportunity_risks(
             mitigation="Define one measurable use case and sequence non-critical integrations after the pilot.",
             owner="Solutions engineer",
         ))
-    if not any(r.category == "performance" and r.status == "confirmed" for r in profile.requirements):
+    performance_requirements = [
+        requirement for requirement in profile.requirements
+        if requirement.category == "performance"
+    ]
+    if (
+        not any(requirement.status == "confirmed" for requirement in performance_requirements)
+        or any(requirement.status == "unknown" for requirement in performance_requirements)
+    ):
         risks.append(Risk(
             category="technical",
             severity="medium",
