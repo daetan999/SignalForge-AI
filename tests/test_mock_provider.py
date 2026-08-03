@@ -56,3 +56,18 @@ Role-based access control is required.
     assert all(item.evidence is not None for item in confirmed)
     assert all(item.evidence.source == "customer-notes.txt" for item in confirmed)
     assert all(item.evidence.quote for item in confirmed)
+
+
+def test_mock_provider_recognizes_confirmed_scale_requirements():
+    profile = MockOpportunityProvider().extract_profile([
+        _document(
+            """Customer: Northstar Bank
+Use Case: Employee policy assistant
+Peak concurrency is 120 users and monthly request volume is 900,000.
+"""
+        )
+    ])
+
+    performance = [item for item in profile.requirements if item.category == "performance"]
+    assert any(item.status == "confirmed" and "scale" in item.requirement.lower() for item in performance)
+    assert not any(item.status == "unknown" for item in performance)
