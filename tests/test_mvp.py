@@ -35,7 +35,13 @@ def test_full_mock_workflow_returns_handoff_ready_result():
         [ParsedDocument(
             name="meridian.txt",
             media_type="text/plain",
-            text="Customer: Meridian Hospitality Group\n5,000 users\npilot within 8 weeks",
+            text=(
+                "Customer: Meridian Hospitality Group\n"
+                "Use Case: Internal AI assistant\n"
+                "Existing cloud is Google Cloud.\n"
+                "5,000 users\n"
+                "pilot within 8 weeks"
+            ),
         )],
         MockOpportunityProvider(),
     )

@@ -28,19 +28,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown(
-    """<div class="sf-hero"><div class="sf-kicker">Agentic opportunity intelligence</div>
-    <h1 style="margin:.25rem 0 0">SignalForge AI</h1>
-    <div class="sf-sub">Turns unstructured customer material into evidence-backed discovery gaps, risks, solution direction, and an AE-to-SE handoff.</div></div>""",
-    unsafe_allow_html=True,
-)
+with st.container(border=True):
+    st.caption("AGENTIC OPPORTUNITY INTELLIGENCE")
+    st.title("SignalForge AI")
+    st.write(
+        "Turns unstructured customer material into evidence-backed discovery gaps, "
+        "risks, solution direction, and an AE-to-SE handoff."
+    )
 
 with st.sidebar:
     st.subheader("Runtime")
     st.info(f"Mode: **{settings.app_mode.upper()}**")
     st.caption(f"Model: {settings.model_name}")
     st.caption("Synthetic demo data only. No customer information is stored.")
-    if st.button("Reset opportunity", use_container_width=True):
+    if st.button("Reset opportunity", width="stretch"):
         st.session_state.clear()
         st.rerun()
 
@@ -56,7 +57,12 @@ with right:
     st.write("Use the validated synthetic opportunity for a reliable two-minute demo.")
     use_demo = st.toggle("Load Meridian Hospitality demo", value=not uploaded)
 
-analyze = st.button("Analyze opportunity", type="primary", use_container_width=True)
+analyze = st.button(
+    "Analyze opportunity",
+    type="primary",
+    width="stretch",
+    key="analyze_opportunity",
+)
 
 if analyze:
     try:
@@ -91,7 +97,7 @@ if result:
         st.markdown(f"**Recommended action:** {result.decision.recommendation}")
         st.write(result.decision.reason)
         st.markdown("#### Stakeholders")
-        st.dataframe([item.model_dump() for item in result.profile.stakeholders], use_container_width=True, hide_index=True)
+        st.dataframe([item.model_dump() for item in result.profile.stakeholders], width="stretch", hide_index=True)
 
     with tabs[1]:
         st.dataframe([
@@ -103,7 +109,7 @@ if result:
                 "Confidence": item.evidence.confidence if item.evidence else None,
             }
             for item in result.profile.requirements
-        ], use_container_width=True, hide_index=True)
+        ], width="stretch", hide_index=True)
 
     with tabs[2]:
         for gap in result.gaps:
@@ -113,10 +119,10 @@ if result:
                 st.caption(gap.rationale)
 
     with tabs[3]:
-        st.dataframe([risk.model_dump() for risk in result.risks], use_container_width=True, hide_index=True)
+        st.dataframe([risk.model_dump() for risk in result.risks], width="stretch", hide_index=True)
 
     with tabs[4]:
-        st.graphviz_chart(result.architecture_dot, use_container_width=True)
+        st.graphviz_chart(result.architecture_dot, width="stretch")
         for component in result.solution_direction:
             with st.container(border=True):
                 st.markdown(f"**{component.service}** · {component.capability}")
@@ -128,6 +134,6 @@ if result:
         markdown = analysis_to_markdown(result)
         st.markdown(markdown)
         c1, c2, c3 = st.columns(3)
-        c1.download_button("Download Markdown", markdown, "signalforge-opportunity-brief.md", "text/markdown", use_container_width=True)
-        c2.download_button("Download JSON", analysis_to_json(result), "signalforge-analysis.json", "application/json", use_container_width=True)
-        c3.download_button("Download DOCX", analysis_to_docx(result), "signalforge-ae-se-handoff.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", use_container_width=True)
+        c1.download_button("Download Markdown", markdown, "signalforge-opportunity-brief.md", "text/markdown", width="stretch")
+        c2.download_button("Download JSON", analysis_to_json(result), "signalforge-analysis.json", "application/json", width="stretch")
+        c3.download_button("Download DOCX", analysis_to_docx(result), "signalforge-ae-se-handoff.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", width="stretch")

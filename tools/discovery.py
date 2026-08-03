@@ -28,8 +28,10 @@ QUESTIONS = {
 
 
 def calculate_discovery_coverage(profile: OpportunityProfile) -> CoverageAssessment:
-    """Calculate coverage from confirmed requirements across required dimensions."""
+    """Calculate coverage only when a dimension has no explicit unknown."""
     confirmed = {item.category for item in profile.requirements if item.status == "confirmed"}
+    unresolved = {item.category for item in profile.requirements if item.status == "unknown"}
+    confirmed -= unresolved
     covered = [label for label, category in DIMENSIONS.items() if category in confirmed]
     missing = [label for label, category in DIMENSIONS.items() if category not in confirmed]
     score = round(len(covered) / len(DIMENSIONS) * 100)
@@ -63,7 +65,8 @@ def determine_next_action(
         return Decision(
             recommendation="Run a focused technical discovery workshop",
             reason=(
-                f"Discovery coverage is {coverage.score}% with {len(high_risks)} high-severity risk(s); "
+                f"Discovery coverage is {coverage.score}% with {len(high_risks)} high-severity risk"
+                f"{'s' if len(high_risks) != 1 else ''}; "
                 "a firm architecture or commercial commitment would be premature."
             ),
             next_steps=[
