@@ -18,6 +18,7 @@ The journeys were derived from the agreed SignalForge MVP plan:
 | Runtime settings, injectable Vertex boundary, retry, packaging ignores, unknown-scale risk | `9e65335` — 6 intended failures | `00d35ff` — target suite 7 passed; full suite 18 passed |
 | Confirmed scale is distinguished from an explicit unknown | `13b74c5` — focused test failed | `04822e0` — focused and full suites passed |
 | The documented validator command runs directly from the project root | `f2c210e` — direct execution reproduced `ModuleNotFoundError` | Follow-up fix — focused test and full 20-test suite passed |
+| The GCP archive excludes local lint caches | `f7176d9` — archive inspection found `.ruff_cache` | Follow-up fix — focused packaging test passed |
 
 ## Test guarantees
 
