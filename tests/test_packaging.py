@@ -1,4 +1,6 @@
+import os
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
 
@@ -33,3 +35,17 @@ def test_portable_zip_contains_runtime_but_not_local_environment(tmp_path):
     assert not any(name.startswith((".git/", ".venv/")) for name in names)
     assert ".env" not in names
     assert not any(name.endswith(".zip") for name in names)
+
+
+def test_environment_validator_runs_directly_from_project_root():
+    environment = {**os.environ, "APP_MODE": "mock"}
+    completed = subprocess.run(
+        [sys.executable, "scripts/validate_environment.py"],
+        cwd=ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert "Environment validation passed" in completed.stdout
