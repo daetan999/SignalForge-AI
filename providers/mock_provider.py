@@ -97,12 +97,31 @@ def _extract_requirements(
         ("data", "Use the documented enterprise data sources.", ("bigquery", "google drive", "sharepoint", "data source")),
         ("integration", "Integrate with the documented existing environment.", ("existing cloud", "integration", "identity provider")),
         ("security", "Enforce the documented identity and audit controls.", ("role-based", "rbac", "audit logging", "least privilege")),
-        ("performance", "Meet the documented response-latency target.", ("latency", "response time", "seconds")),
     ]
     for category, summary, keywords in patterns:
         evidence = _find_evidence(documents, lambda line, keys=keywords: any(key in line for key in keys))
         if evidence:
             requirements.append(_req(category, summary, *evidence))
+
+    latency_evidence = _find_evidence(
+        documents,
+        lambda line: any(keyword in line for keyword in ("latency", "response time")),
+    )
+    if latency_evidence:
+        requirements.append(_req("performance", "Meet the documented response-latency target.", *latency_evidence))
+
+    scale_evidence = _find_evidence(
+        documents,
+        lambda line: (
+            any(
+                keyword in line
+                for keyword in ("peak concurrency", "request volume", "requests per", "monthly requests")
+            )
+            and not any(marker in line for marker in ("unknown", "not confirmed", "tbd"))
+        ),
+    )
+    if scale_evidence:
+        requirements.append(_req("performance", "Support the documented workload scale and request volume.", *scale_evidence))
 
     timeline_evidence = _find_evidence(
         documents,
@@ -130,7 +149,7 @@ def _unknown_requirements(
         unknowns.append(Requirement(category="commercial", requirement="Confirm an approved pilot budget.", status="unknown"))
     if data_sensitivity == "unknown":
         unknowns.append(Requirement(category="security", requirement="Confirm the formal data classification and PII scope.", status="unknown"))
-    if not any(item.category == "performance" and "volume" in item.requirement.lower() for item in requirements):
+    if not any(item.category == "performance" and "scale" in item.requirement.lower() for item in requirements):
         unknowns.append(Requirement(category="performance", requirement="Confirm peak concurrency and request volume.", status="unknown"))
     return unknowns
 
