@@ -89,6 +89,8 @@ The Vertex provider uses the same validated `OpportunityProfile` contract as moc
 
 ## Workshop transfer
 
+For the complete step-by-step event procedure, including mock testing, Vertex AI validation, Cloud Shell Web Preview, Cloud Run, and troubleshooting, use the [workshop-day runbook](runbook.md).
+
 Create the self-contained archive before the event:
 
 ```bash
