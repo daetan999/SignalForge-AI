@@ -1,0 +1,511 @@
+# Instincts generated from https://github.com/daetan999/SignalForge-AI
+# Generated: 2026-08-03T06:36:29.579Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: SignalForge-AI-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: test, fix, refactor, chore
+
+## Evidence
+
+- 12 commits analyzed
+- Detected conventional commit pattern
+- Examples: test: add red coverage for grounded mock workflow, fix: ground mock analysis in uploaded evidence
+
+---
+id: SignalForge-AI-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Commit Length
+
+## Action
+
+Keep commit messages concise (~46 characters)
+
+## Evidence
+
+- Average commit message length: 46 chars
+- Based on 12 commits
+
+---
+id: SignalForge-AI-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Naming Files
+
+## Action
+
+Use snake_case naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: snake_case
+
+---
+id: SignalForge-AI-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: SignalForge-AI-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: SignalForge-AI-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: SignalForge-AI-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: SignalForge-AI-workflow-add-or-update-tests-for-feature-or-bugfix
+trigger: "when doing add or update tests for feature or bugfix"
+confidence: 0.75
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Workflow Add Or Update Tests For Feature Or Bugfix
+
+## Action
+
+Follow the add-or-update-tests-for-feature-or-bugfix workflow:
+1. Identify the feature, bug, or boundary to cover.
+2. Edit or create relevant test files in the tests/ directory.
+3. Commit with a message starting with 'test:' describing the coverage.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~5x per month
+- Files: tests/test_decisions.py, tests/test_mock_provider.py, tests/test_streamlit_app.py
+
+---
+id: SignalForge-AI-workflow-fix-feature-or-bug-across-implementation-and-tests
+trigger: "when doing fix feature or bug across implementation and tests"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Workflow Fix Feature Or Bug Across Implementation And Tests
+
+## Action
+
+Follow the fix-feature-or-bug-across-implementation-and-tests workflow:
+1. Identify the bug or feature to fix.
+2. Modify implementation files (e.g., in providers/, app.py, tools/).
+3. Update or add related test files in tests/.
+4. Commit with a message starting with 'fix:'.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: providers/mock_provider.py, app.py, tools/discovery.py
+
+---
+id: SignalForge-AI-workflow-update-deployment-and-ignore-configs
+trigger: "when doing update deployment and ignore configs"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/daetan999/SignalForge-AI
+---
+
+# SignalForge AI Workflow Update Deployment And Ignore Configs
+
+## Action
+
+Follow the update-deployment-and-ignore-configs workflow:
+1. Edit .dockerignore, .gcloudignore, .gitignore as needed.
+2. Update deployment scripts (e.g., scripts/package_for_gcp.sh, scripts/deploy_cloud_run.sh).
+3. Commit with a message indicating packaging or deployment boundary changes.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: .dockerignore, .gcloudignore, .gitignore
+
+---
+id: signalforge-ai-instinct-file-naming-snake-case
+trigger: "When creating or renaming a file in the codebase"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct File Naming Snake Case
+
+## Action
+
+Use snake_case for file names
+
+## Evidence
+
+- Pattern in namingConventions.files: snake_case
+
+---
+id: signalforge-ai-instinct-function-naming-camel-case
+trigger: "When defining a new function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Function Naming Camel Case
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: signalforge-ai-instinct-class-naming-pascal-case
+trigger: "When defining a new class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Class Naming Pascal Case
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: signalforge-ai-instinct-constant-naming-screaming-snake-case
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Constant Naming Screaming Snake Case
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: signalforge-ai-instinct-import-style-relative
+trigger: "When importing modules within the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Import Style Relative
+
+## Action
+
+Use relative imports
+
+## Evidence
+
+- Pattern in importStyle: relative
+
+---
+id: signalforge-ai-instinct-export-style-named
+trigger: "When exporting functions or classes"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Export Style Named
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: signalforge-ai-instinct-test-file-location
+trigger: "When adding or updating tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Test File Location
+
+## Action
+
+Place test files in the tests/ directory, separate from source code
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation: separate
+- Files in tests/
+
+---
+id: signalforge-ai-instinct-test-file-naming-pattern
+trigger: "When naming a test file"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Test File Naming Pattern
+
+## Action
+
+Use the pattern *.test.ts for test file names
+
+## Evidence
+
+- Pattern in testing.filePattern: *.test.ts
+
+---
+id: signalforge-ai-instinct-test-coverage-commit
+trigger: "When adding or updating tests for a feature, bug, or boundary"
+confidence: 0.95
+domain: git
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Test Coverage Commit
+
+## Action
+
+Commit with a message starting with 'test:' describing the coverage
+
+## Evidence
+
+- Commits: 'test: add red coverage for grounded mock workflow'
+- Workflow: add-or-update-tests-for-feature-or-bugfix
+
+---
+id: signalforge-ai-instinct-fix-commit-pattern
+trigger: "When fixing a bug or improving a feature"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Fix Commit Pattern
+
+## Action
+
+Commit with a message starting with 'fix:'
+
+## Evidence
+
+- Commits: 'fix: ground mock analysis in uploaded evidence'
+- Workflow: fix-feature-or-bug-across-implementation-and-tests
+
+---
+id: signalforge-ai-instinct-refactor-commit-pattern
+trigger: "When refactoring code"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Refactor Commit Pattern
+
+## Action
+
+Commit with a message starting with 'refactor:'
+
+## Evidence
+
+- Commits: 'refactor: add quality gates and event runbook'
+
+---
+id: signalforge-ai-instinct-chore-commit-pattern
+trigger: "When making non-functional changes (e.g., updating configs, scripts, or dependencies)"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Chore Commit Pattern
+
+## Action
+
+Commit with a message starting with 'chore:'
+
+## Evidence
+
+- Commits: 'chore: exclude generated coverage artifacts'
+
+---
+id: signalforge-ai-instinct-add-or-update-tests-workflow
+trigger: "When implementing a new feature, fixing a bug, or increasing test coverage"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Add Or Update Tests Workflow
+
+## Action
+
+Edit or create relevant test files in tests/, then commit with 'test:' prefix
+
+## Evidence
+
+- Workflow: add-or-update-tests-for-feature-or-bugfix
+- Commits: 'test: add red coverage for runtime and packaging boundary'
+
+---
+id: signalforge-ai-instinct-fix-feature-or-bug-workflow
+trigger: "When fixing a bug or improving a feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Fix Feature Or Bug Workflow
+
+## Action
+
+Modify implementation and related test files, then commit with 'fix:' prefix
+
+## Evidence
+
+- Workflow: fix-feature-or-bug-across-implementation-and-tests
+- Commits: 'fix: harden Vertex boundary and GCP package'
+
+---
+id: signalforge-ai-instinct-update-deployment-configs-workflow
+trigger: "When adjusting which files are included/excluded in deployment or packaging"
+confidence: 0.88
+domain: workflow
+source: repo-analysis
+source_repo: daetan999/SignalForge-AI
+---
+
+# Signalforge Ai Instinct Update Deployment Configs Workflow
+
+## Action
+
+Edit ignore files and deployment scripts, then commit with a message indicating packaging or deployment boundary changes
+
+## Evidence
+
+- Workflow: update-deployment-and-ignore-configs
+- Commits: 'chore: exclude generated coverage artifacts'
+
