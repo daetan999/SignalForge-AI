@@ -1,4 +1,5 @@
 """Architecture visualization generated from validated solution components."""
+
 from __future__ import annotations
 
 from schemas.opportunity import SolutionComponent
@@ -11,11 +12,12 @@ def build_architecture_dot(components: list[SolutionComponent]) -> str:
         "digraph SignalForge {",
         'rankdir="LR";',
         'graph [bgcolor="transparent", pad="0.2", nodesep="0.45", ranksep="0.65"];',
-        'node [shape="box", style="rounded,filled", fillcolor="#F8FAFC", color="#334155", fontname="Arial"];',
+        'node [shape="box", style="rounded,filled", fillcolor="#F8FAFC", '
+        'color="#334155", fontname="Arial"];',
         'edge [color="#64748B", penwidth="1.5"];',
         'users [label="Enterprise Users"];',
         'app [label="SignalForge Application"];',
-        'users -> app;',
+        "users -> app;",
     ]
     previous = "app"
     service_nodes: list[tuple[str, str]] = []

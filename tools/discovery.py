@@ -1,8 +1,8 @@
 """Discovery coverage, gap generation, and deterministic next-step logic."""
+
 from __future__ import annotations
 
 from schemas.opportunity import CoverageAssessment, Decision, DiscoveryGap, OpportunityProfile, Risk
-
 
 DIMENSIONS = {
     "business objective": "business",
@@ -17,19 +17,42 @@ DIMENSIONS = {
 
 QUESTIONS = {
     "business objective": ("important", "Which measurable business outcome defines pilot success?"),
-    "user population": ("important", "How many users and peak concurrent sessions must the pilot support?"),
-    "data sources": ("critical", "Which systems and repositories are in scope, and who owns access approval?"),
-    "security and governance": ("critical", "What data classification, PII, residency, and audit requirements apply?"),
-    "performance and scale": ("important", "What are the peak request volume, latency target, and availability requirement?"),
-    "integrations": ("important", "Which identity, data, and workflow integrations are mandatory for the pilot?"),
-    "timeline": ("important", "What date is fixed, and which dependencies could affect the pilot timeline?"),
-    "commercial approval": ("critical", "What pilot budget is approved, and who owns commercial sign-off?"),
+    "user population": (
+        "important",
+        "How many users and peak concurrent sessions must the pilot support?",
+    ),
+    "data sources": (
+        "critical",
+        "Which systems and repositories are in scope, and who owns access approval?",
+    ),
+    "security and governance": (
+        "critical",
+        "What data classification, PII, residency, and audit requirements apply?",
+    ),
+    "performance and scale": (
+        "important",
+        "What are the peak request volume, latency target, and availability requirement?",
+    ),
+    "integrations": (
+        "important",
+        "Which identity, data, and workflow integrations are mandatory for the pilot?",
+    ),
+    "timeline": (
+        "important",
+        "What date is fixed, and which dependencies could affect the pilot timeline?",
+    ),
+    "commercial approval": (
+        "critical",
+        "What pilot budget is approved, and who owns commercial sign-off?",
+    ),
 }
 
 
 def calculate_discovery_coverage(profile: OpportunityProfile) -> CoverageAssessment:
-    """Calculate coverage from confirmed requirements across required dimensions."""
+    """Calculate coverage only when a dimension has no explicit unknown."""
     confirmed = {item.category for item in profile.requirements if item.status == "confirmed"}
+    unresolved = {item.category for item in profile.requirements if item.status == "unknown"}
+    confirmed -= unresolved
     covered = [label for label, category in DIMENSIONS.items() if category in confirmed]
     missing = [label for label, category in DIMENSIONS.items() if category not in confirmed]
     score = round(len(covered) / len(DIMENSIONS) * 100)
@@ -63,7 +86,8 @@ def determine_next_action(
         return Decision(
             recommendation="Run a focused technical discovery workshop",
             reason=(
-                f"Discovery coverage is {coverage.score}% with {len(high_risks)} high-severity risk(s); "
+                f"Discovery coverage is {coverage.score}% with {len(high_risks)} high-severity risk"
+                f"{'s' if len(high_risks) != 1 else ''}; "
                 "a firm architecture or commercial commitment would be premature."
             ),
             next_steps=[

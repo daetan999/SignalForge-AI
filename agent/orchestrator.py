@@ -1,4 +1,5 @@
 """Multi-step opportunity analysis workflow."""
+
 from __future__ import annotations
 
 from config.settings import Settings
@@ -7,7 +8,11 @@ from providers.mock_provider import MockOpportunityProvider
 from providers.vertex_provider import VertexOpportunityProvider
 from schemas.opportunity import AnalysisResult, ParsedDocument
 from tools.architecture_builder import build_architecture_dot
-from tools.discovery import calculate_discovery_coverage, determine_next_action, identify_discovery_gaps
+from tools.discovery import (
+    calculate_discovery_coverage,
+    determine_next_action,
+    identify_discovery_gaps,
+)
 from tools.risk_assessment import assess_opportunity_risks
 from tools.solution_mapper import map_requirements_to_gcp_services
 
@@ -27,7 +32,8 @@ def analyze_opportunity(
     """Run the complete observe-evaluate-decide-act workflow."""
     trace = [f"Parsed {len(documents)} customer document(s)"]
     profile = provider.extract_profile(documents)
-    trace.append(f"Extracted {sum(r.status == 'confirmed' for r in profile.requirements)} confirmed requirements")
+    confirmed_count = sum(requirement.status == "confirmed" for requirement in profile.requirements)
+    trace.append(f"Extracted {confirmed_count} confirmed requirements")
 
     coverage = calculate_discovery_coverage(profile)
     gaps = identify_discovery_gaps(coverage)

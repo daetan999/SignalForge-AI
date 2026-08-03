@@ -1,4 +1,5 @@
 """Ensure repository packages are importable during test collection."""
+
 from __future__ import annotations
 
 import sys

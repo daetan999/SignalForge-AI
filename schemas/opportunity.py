@@ -1,4 +1,5 @@
 """Pydantic models shared across the agent, tools, and UI."""
+
 from __future__ import annotations
 
 from typing import Literal
@@ -20,8 +21,15 @@ class Evidence(BaseModel):
 
 class Requirement(BaseModel):
     category: Literal[
-        "business", "users", "data", "security", "performance",
-        "integration", "timeline", "commercial", "operations"
+        "business",
+        "users",
+        "data",
+        "security",
+        "performance",
+        "integration",
+        "timeline",
+        "commercial",
+        "operations",
     ]
     requirement: str
     status: Literal["confirmed", "assumed", "unknown"] = "confirmed"
@@ -43,7 +51,9 @@ class OpportunityProfile(BaseModel):
     intended_users: int | None = None
     pilot_timeline_weeks: int | None = None
     budget_status: Literal["approved", "estimated", "unknown"] = "unknown"
-    data_sensitivity: Literal["public", "internal", "confidential", "restricted", "unknown"] = "unknown"
+    data_sensitivity: Literal["public", "internal", "confidential", "restricted", "unknown"] = (
+        "unknown"
+    )
     requirements: list[Requirement] = Field(default_factory=list)
     stakeholders: list[Stakeholder] = Field(default_factory=list)
 

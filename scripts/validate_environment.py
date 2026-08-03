@@ -1,11 +1,16 @@
 """Fast event-day checks before launching the full application."""
+
 from __future__ import annotations
 
 import importlib
 import sys
+from pathlib import Path
 
-from config.settings import settings
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+from config.settings import settings  # noqa: E402
 
 REQUIRED_IMPORTS = ["streamlit", "pydantic", "docx", "google.genai"]
 

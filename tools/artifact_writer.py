@@ -1,4 +1,5 @@
 """Create portable handoff artifacts from a validated analysis."""
+
 from __future__ import annotations
 
 import io
@@ -21,7 +22,8 @@ def analysis_to_markdown(result: AnalysisResult) -> str:
         "## Confirmed Requirements",
     ]
     lines.extend(
-        f"- {item.requirement}" for item in result.profile.requirements
+        f"- {item.requirement}"
+        for item in result.profile.requirements
         if item.status == "confirmed"
     )
     lines += ["", "## Discovery Gaps"]
@@ -53,7 +55,9 @@ def analysis_to_docx(result: AnalysisResult) -> bytes:
 
     document.add_heading("Risks", level=1)
     for risk in result.risks:
-        document.add_paragraph(f"{risk.statement} Mitigation: {risk.mitigation}", style="List Bullet")
+        document.add_paragraph(
+            f"{risk.statement} Mitigation: {risk.mitigation}", style="List Bullet"
+        )
 
     document.add_heading("Initial Solution Direction", level=1)
     for item in result.solution_direction:
